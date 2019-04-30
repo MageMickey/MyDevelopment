@@ -15,9 +15,8 @@ import javax.net.ssl.TrustManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- * Created by Administrator on 2016/11/7.
+ * 公众请求工具
  */
 public class WeixinUtil {
     private static Logger log = LoggerFactory.getLogger(WeixinUtil.class);

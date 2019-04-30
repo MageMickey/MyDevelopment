@@ -22,12 +22,17 @@ public class AccessTokenThread {
     public static AccessToken accessToken = null;
     //定时任务，90分钟执行一次
     @Scheduled(fixedDelay = 2*2700*1000)
-    public void getAccessToken(){
+    public void getTimingAccessToken(){
         //获取微信服务器返回的json
-        JSONObject accessTokenJson = WeixinUtil.httpRequest(WechatConstants.getAccess_token_url(), "GET", null);
+        JSONObject accessTokenJson = AccessTokenThread.getAccessToken();
         String access_token = accessTokenJson.getString("access_token");
         int expires_in = accessTokenJson.getInt("expires_in");
         log.info("成功获取access_token："+access_token);
-        accessToken = new AccessToken(access_token,expires_in);
+        AccessTokenThread.accessToken = new AccessToken(access_token,expires_in);
+    }
+
+    public static JSONObject getAccessToken(){
+        return WeixinUtil.httpRequest(WechatConstants.getAccess_token_url(), "GET", null);
+
     }
 }
