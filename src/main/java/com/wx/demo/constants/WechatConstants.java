@@ -5,10 +5,10 @@ import com.wx.demo.model.timing.AccessTokenThread;
 //静态常量类
 public class WechatConstants {
     //公众号appid
-    public static final String APPID = "你的appid";
+    public static final String APPID = "wx860bf6a8512b89e2";
 
     //公众号appsecert
-    public static final String APPSECRET = "你的appsecert";
+    public static final String APPSECRET = "dfc8670351e2c467e00c159eab060349";
 
     //获取access_token_Url
     private static String ACCESS_TOKEN_URL = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET";

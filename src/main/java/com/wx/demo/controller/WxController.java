@@ -1,6 +1,8 @@
 package com.wx.demo.controller;
 
+import com.wx.demo.service.MessageService;
 import com.wx.demo.utils.SignUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,28 +45,36 @@ public class WxController {
 
     }
 
-//    @RequestMapping(value = "/coreServlet",method= RequestMethod.POST)
-//    public void xx(HttpServletRequest request,HttpServletResponse response){
-//        // 将请求、响应的编码均设置为UTF-8（防止中文乱码）
-//        try {
-//            request.setCharacterEncoding("UTF-8");
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-//        response.setCharacterEncoding("UTF-8");
-//
-//        // 调用核心业务类接收消息、处理消息
-//        String respMessage = coreService.processRequest(request);
-//
-//        // 响应消息
-//        PrintWriter out = null;
-//        try {
-//            out = response.getWriter();
-//            out.print(respMessage);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } finally {
-//            out.close();
-//        }
-//    }
+    @Autowired
+    private MessageService messageService;
+
+    @RequestMapping(value = "/coreController",method= RequestMethod.POST)
+    public void handleEvent(HttpServletRequest request,HttpServletResponse response){
+        // 将请求、响应的编码均设置为UTF-8（防止中文乱码）
+        try {
+            request.setCharacterEncoding("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        response.setCharacterEncoding("UTF-8");
+
+        // 调用核心业务类接收消息、处理消息
+        String respMessage = null;
+        try {
+            respMessage = messageService.handleRequest(request);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 响应消息
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+            out.print(respMessage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            out.close();
+        }
+    }
 }
