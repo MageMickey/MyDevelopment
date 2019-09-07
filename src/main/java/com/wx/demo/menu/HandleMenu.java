@@ -5,6 +5,7 @@ import com.wx.demo.model.Menu;
 import com.wx.demo.utils.WeixinUtil;
 import net.sf.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +37,7 @@ public class HandleMenu {
         menu12.setType("click");
         menu12.setKey("A2");
 
+
         //第二栏
         Menu menu2=new Menu();
         menu2.setId("B");
@@ -55,7 +57,10 @@ public class HandleMenu {
         menu3.setId("C");
         menu3.setName("第三栏");
         menu3.setType("view");
-        menu3.setUrl("http://www.baidu.com");
+        menu3.setUrl(WechatConstants.getWeb_authorize_url(
+                URLEncoder.encode("http://8end2k.natappfree.cc/test/authorizeInfo"),
+                false,
+                "123"));
 
         //最外一层大括号
         Map<String, Object> wechatMenuMap = new HashMap<String, Object>();
